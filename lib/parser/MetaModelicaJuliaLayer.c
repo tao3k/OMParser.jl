@@ -2,14 +2,14 @@
 #include <julia.h>
 #include "MetaModelicaJuliaLayer.h"
 
-jl_function_t* omc_jl_some = NULL;
-jl_function_t* omc_jl_cons = NULL;
-jl_function_t* omc_jl_cons_typed = NULL;
-jl_function_t* omc_jl_sourceinfo = NULL;
-jl_function_t* omc_jl_listEmpty = NULL;
-jl_function_t* omc_jl_listReverse = NULL;
-jl_function_t* omc_jl_tuple2 = NULL;
-jl_function_t* omc_jl_isDerCref = NULL;
+omc_jl_function_ref_t omc_jl_some = NULL;
+omc_jl_function_ref_t omc_jl_cons = NULL;
+omc_jl_function_ref_t omc_jl_cons_typed = NULL;
+omc_jl_function_ref_t omc_jl_sourceinfo = NULL;
+omc_jl_function_ref_t omc_jl_listEmpty = NULL;
+omc_jl_function_ref_t omc_jl_listReverse = NULL;
+omc_jl_function_ref_t omc_jl_tuple2 = NULL;
+omc_jl_function_ref_t omc_jl_isDerCref = NULL;
 jl_value_t* omc_jl_nil = NULL;
 
 void OpenModelica_initMetaModelicaJuliaLayer()
@@ -82,7 +82,12 @@ void c_add_source_message(
        jl_value_t* filename)
 {
   int i;
-  fprintf(stderr, "%s:%d:%d-%d:%d: %s\n", jl_string_data(filename), startLine, startCol, endLine, endCol, message, nTokens);
+  (void)dummy;
+  (void)errorID;
+  (void)type;
+  (void)severity;
+  (void)isReadOnly;
+  fprintf(stderr, "%s:%d:%d-%d:%d: %s\n", jl_string_data(filename), startLine, startCol, endLine, endCol, message);
   for (i=0; i<nTokens; i++) {
     fprintf(stderr, "    Error token %d: %s\n", i+1, ctokens[i]);
   }
@@ -152,4 +157,3 @@ jl_value_t* SourceInfo__SOURCEINFO(jl_value_t* fileName, int isReadOnly, int lin
 }
 
 */
-
